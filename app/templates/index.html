@@ -8,10 +8,8 @@
 </head>
 <body>
     <h1>Hello, {{ username }}</h1>
-    {% if flag %}
-        {% for i in range(n) %}
-        <p>{{ i }}</p>
-        {% endfor %}
-    {% endif %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
 </body>
 </html>
