@@ -4,3 +4,5 @@ config.ini
 *.session
 config.py
 *.session-journal
+constants.py
+test.ipynb

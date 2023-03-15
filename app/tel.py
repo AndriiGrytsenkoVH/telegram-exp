@@ -1,28 +1,15 @@
 from telethon import TelegramClient
-# import configparser
-
-# config = configparser.ConfigParser()
-# config.read("config.ini")
-
-# api_id = config['Telegram']['api_id']
-# api_hash = config['Telegram']['api_hash']
-# api_hash = str(api_hash)
-
-from app.config import api_hash, api_id
+from constants import api_hash, api_id
+from datetime import datetime, timedelta
 
 client = TelegramClient('anon', api_id, api_hash)
 
-
-async def get_messages(channel, n):
-    # result = []
-    # async for message in client.iter_messages(channel, limit=n):
-    #     result.append(message.text)
-    my_gen = client.iter_messages(channel, limit=n)
-    return [message.text async for message in my_gen]
-
-
-
-
+async def get_messages(channel, days):
+    start_date = datetime.now() - timedelta(days=days)
+    start_date = datetime(*start_date.timetuple()[:3])
+    my_gen = client.iter_messages(channel, reverse=True, offset_date=start_date)
+    return [message.text async for message in my_gen][::-1]
 
 # with client:
-#     client.loop.run_until_complete(get_messages())
+#     client.loop.run_until_complete(main())
+        

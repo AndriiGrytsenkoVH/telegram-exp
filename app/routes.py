@@ -1,19 +1,16 @@
 from app import app
 from flask import render_template
-from app.tel import get_messages
+from app.tel import get_messages, client
 
 @app.route('/')
 @app.route('/index')
-def index():
+async def index():
     user = {'name': 'Din'}
-    n = 10
-    flag = True
-    messages = get_messages('t.me/talentservicejobs', 3)
-    print(messages)
-    print(type(messages))
+    async with client:
+        messages = await get_messages('t.me/zarubezhom_jobs', days=14)
     return render_template(
         'index.html', 
         title='TExp', 
         username=user['name'], 
         messages=messages
-        )
+    )
