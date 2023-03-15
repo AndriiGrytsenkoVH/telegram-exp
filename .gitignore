@@ -6,3 +6,4 @@ config.py
 *.session-journal
 constants.py
 test.ipynb
+test.py

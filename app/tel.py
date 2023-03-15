@@ -8,7 +8,7 @@ async def get_messages(channel, days):
     start_date = datetime.now() - timedelta(days=days)
     start_date = datetime(*start_date.timetuple()[:3])
     my_gen = client.iter_messages(channel, reverse=True, offset_date=start_date)
-    return [message.text async for message in my_gen][::-1]
+    return [message.raw_text async for message in my_gen][::-1]
 
 # with client:
 #     client.loop.run_until_complete(main())
